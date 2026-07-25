@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->id();
+             $table->foreignId('user_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    $table->string('activity');
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('activities');
     }
 };

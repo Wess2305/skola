@@ -11,8 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('assignment_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    $table->foreignId('user_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    $table->string('file');
+
+    $table->text('comment')->nullable();
+
+    $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('submissions');
     }
 };
