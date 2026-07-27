@@ -1,9 +1,9 @@
-<x-app-layout>
-    <div class="p-6">
-        <h1 class="text-3xl font-bold">
-            Teacher Dashboard
-        </h1>
+@extends('layouts.app-dashboard')
 
-        <p>Welcome, {{ Auth::user()->name }}</p>
-    </div>
-</x-app-layout>
+@section('content')
+
+<h1 class="text-3xl font-bold">
+    Teacher Dashboard
+</h1>
+
+@endsection
