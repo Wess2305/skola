@@ -237,7 +237,7 @@ Friday
                 </p>
 
             </div>
-
+ 
             <x-badge>
                 New
             </x-badge>
