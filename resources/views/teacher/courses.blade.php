@@ -13,8 +13,11 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Your course catalog</h1>
             <p class="mt-2 text-slate-500">Manage course content, students, and assignments from one place.</p>
         </div>
-            <a href="{{ route('teacher.courses') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Course</a>
-        </div>
+        <a href="{{ route('teacher.courses') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Course</a>
+    </div>
+
+    <div class="space-y-4">
+        @foreach([
             ['title' => 'Chemistry', 'students' => 22, 'modules' => 5, 'assignments' => 3],
             ['title' => 'English', 'students' => 34, 'modules' => 9, 'assignments' => 7],
             ['title' => 'History', 'students' => 26, 'modules' => 6, 'assignments' => 4],
@@ -46,6 +49,7 @@
                 </div>
             </x-card>
         @endforeach
+    </div>
     </div>
 
 </div>

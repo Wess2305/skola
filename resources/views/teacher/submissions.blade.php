@@ -13,8 +13,13 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Student work</h1>
             <p class="mt-2 text-slate-500">Review submitted assignments and provide feedback.</p>
         </div>
-            <a href="{{ route('teacher.submissions') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">View pending</a>
-        </div>
+        <a href="{{ route('teacher.submissions') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">View pending</a>
+    </div>
+
+    <div class="space-y-4">
+        @foreach([
+            ['course' => 'Chemistry', 'assignment' => 'Reaction lab worksheet', 'student' => 'Liam Harper', 'status' => 'Pending', 'submitted' => 'Submitted 2h ago'],
+            ['course' => 'Biology', 'assignment' => 'Cell structure quiz', 'student' => 'Ava Lee', 'status' => 'Reviewed', 'submitted' => 'Reviewed today'],
         ] as $submission)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -30,6 +35,7 @@
                 </div>
             </x-card>
         @endforeach
+    </div>
     </div>
 
 </div>

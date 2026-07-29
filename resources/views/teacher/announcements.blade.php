@@ -13,8 +13,13 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Class updates</h1>
             <p class="mt-2 text-slate-500">Publish announcements to keep students informed.</p>
         </div>
-            <a href="{{ route('teacher.announcements') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Announcement</a>
-        </div>
+        <a href="{{ route('teacher.announcements') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Announcement</a>
+    </div>
+
+    <div class="space-y-4">
+        @foreach([
+            ['course' => 'Chemistry', 'title' => 'Lab safety reminder', 'message' => 'Please review the updated safety procedures before tomorrow’s lab.', 'time' => '2h ago'],
+            ['course' => 'Biology', 'title' => 'Field trip form due Friday', 'message' => 'Submit the permission slip before the end of the week.', 'time' => 'Today'],
         ] as $item)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -27,6 +32,7 @@
                 </div>
             </x-card>
         @endforeach
+    </div>
     </div>
 
 </div>
