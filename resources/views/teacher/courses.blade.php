@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Courses')
+
+
 @section('content')
 
 <div class="space-y-8">
@@ -10,14 +13,8 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Your course catalog</h1>
             <p class="mt-2 text-slate-500">Manage course content, students, and assignments from one place.</p>
         </div>
-        <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Course</a>
-    </div>
-
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        @foreach([
-            ['title' => 'Mathematics', 'students' => 32, 'modules' => 8, 'assignments' => 5],
-            ['title' => 'Physics', 'students' => 28, 'modules' => 7, 'assignments' => 6],
-            ['title' => 'Biology', 'students' => 24, 'modules' => 6, 'assignments' => 4],
+            <a href="{{ route('teacher.courses') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Course</a>
+        </div>
             ['title' => 'Chemistry', 'students' => 22, 'modules' => 5, 'assignments' => 3],
             ['title' => 'English', 'students' => 34, 'modules' => 9, 'assignments' => 7],
             ['title' => 'History', 'students' => 26, 'modules' => 6, 'assignments' => 4],
@@ -45,7 +42,7 @@
                     </div>
                 </div>
                 <div class="mt-6">
-                    <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Manage course</a>
+                    <a href="{{ route('teacher.courses') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Manage course</a>
                 </div>
             </x-card>
         @endforeach

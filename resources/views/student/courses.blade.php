@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Courses')
+
+
 @section('content')
 
 <div class="space-y-8">

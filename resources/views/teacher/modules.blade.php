@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Modules')
+
+
 @section('content')
 
 <div class="space-y-8">
@@ -10,14 +13,8 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Module management</h1>
             <p class="mt-2 text-slate-500">Organize lessons and learning units for your courses.</p>
         </div>
-        <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Add Module</a>
-    </div>
-
-    <div class="grid gap-6 md:grid-cols-2">
-        @foreach([
-            ['course' => 'Mathematics', 'title' => 'Algebra fundamentals', 'lessons' => 8],
-            ['course' => 'Physics', 'title' => 'Motion and force', 'lessons' => 7],
-            ['course' => 'Biology', 'title' => 'Genetics and cells', 'lessons' => 6],
+            <a href="{{ route('teacher.modules') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Add Module</a>
+        </div>
             ['course' => 'Chemistry', 'title' => 'Introduction to reactions', 'lessons' => 5],
         ] as $module)
             <x-card>

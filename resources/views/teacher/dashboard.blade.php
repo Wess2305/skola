@@ -1,78 +1,170 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Dashboard')
+
 @section('content')
-
 <div class="space-y-8">
-
-    <section class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">Teacher dashboard</p>
-                <h1 class="mt-3 text-3xl font-semibold text-slate-900">Welcome back, Instructor</h1>
-                <p class="mt-2 text-slate-500">Track your courses, student activity, and grading flow from one place.</p>
+    <section class="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div class="max-w-2xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-indigo-600">Teacher dashboard</p>
+                <h1 class="mt-3 text-3xl font-semibold text-slate-900 sm:text-4xl">Good afternoon, Mr. Anderson 👋</h1>
+                <p class="mt-3 text-base text-slate-500">Manage your classes, assignments, and student progress from a single, calm workspace.</p>
             </div>
-            <div class="inline-flex items-center gap-3 rounded-3xl bg-indigo-50 px-5 py-3 text-slate-900">
-                <span class="text-2xl">👩‍🏫</span>
-                <div>
-                    <p class="text-sm text-slate-500">Active courses</p>
-                    <p class="text-xl font-semibold">5</p>
-                </div>
+
+            <div class="flex flex-wrap gap-3">
+                <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700">Create course</a>
+                <a href="#" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">New assignment</a>
+                <a href="#" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">Create announcement</a>
             </div>
         </div>
     </section>
 
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <x-stat-card title="Students" value="180" description="Enrolled" />
-        <x-stat-card title="Courses" value="5" description="Managed" />
-        <x-stat-card title="Assignments" value="24" description="Pending review" />
-        <x-stat-card title="Pending grades" value="14" description="Action needed" />
-    </div>
+    <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <x-teacher-stat-card title="Total students" value="184" description="Across 5 active classes" icon="👥" accent="bg-indigo-50 text-indigo-600" />
+        <x-teacher-stat-card title="Courses" value="5" description="2 new this term" icon="📘" accent="bg-violet-50 text-violet-600" />
+        <x-teacher-stat-card title="Assignments" value="24" description="8 due this week" icon="📝" accent="bg-emerald-50 text-emerald-600" />
+        <x-teacher-stat-card title="Pending grades" value="14" description="Need review today" icon="✅" accent="bg-amber-50 text-amber-600" />
+    </section>
 
-    <div class="grid gap-6 xl:grid-cols-2">
+    <section class="grid gap-6 xl:grid-cols-[1.3fr_0.9fr]">
         <x-card>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-xl font-semibold text-slate-900">Recent activities</h2>
-                    <p class="text-sm text-slate-500">Latest course updates and student actions.</p>
+                    <h2 class="text-xl font-semibold text-slate-900">My courses</h2>
+                    <p class="text-sm text-slate-500">Keep each class moving with a clear overview.</p>
                 </div>
-                <x-badge>Live</x-badge>
+                <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">View all</a>
             </div>
-            <div class="mt-6 space-y-4">
-                @foreach([
-                    ['title' => 'Physics assignment created', 'description' => 'New worksheet posted for Motion topics.'],
-                    ['title' => 'Grade review requested', 'description' => '3 students requested feedback on Geometry.'],
-                    ['title' => 'Chemistry announcement', 'description' => 'Lab safety update sent to class.'],
-                ] as $activity)
-                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                        <h3 class="font-semibold text-slate-900">{{ $activity['title'] }}</h3>
-                        <p class="mt-2 text-sm text-slate-500">{{ $activity['description'] }}</p>
-                    </div>
-                @endforeach
+
+            <div class="mt-6 grid gap-4 lg:grid-cols-2">
+                <x-course-overview-card title="Mathematics" students="42" progress="82" next-lesson="Linear equations practice" />
+                <x-course-overview-card title="Physics" students="31" progress="68" next-lesson="Forces and motion lab" />
+                <x-course-overview-card title="Biology" students="29" progress="76" next-lesson="Cell structure review" />
+                <x-course-overview-card title="Chemistry" students="27" progress="59" next-lesson="Acid-base reactions" />
             </div>
         </x-card>
 
         <x-card>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-4">
                 <div>
                     <h2 class="text-xl font-semibold text-slate-900">Recent submissions</h2>
-                    <p class="text-sm text-slate-500">Review and grade the latest work.</p>
+                    <p class="text-sm text-slate-500">Review work before it piles up.</p>
                 </div>
+                <x-badge variant="primary">4 new</x-badge>
             </div>
-            <div class="mt-6 space-y-4">
-                @foreach([
-                    ['student' => 'Liam Harper', 'course' => 'Mathematics', 'assignment' => 'Algebra Homework'],
-                    ['student' => 'Ava Lee', 'course' => 'Biology', 'assignment' => 'Genetics Summary'],
-                    ['student' => 'Noah Kim', 'course' => 'English', 'assignment' => 'Essay Draft'],
-                ] as $submission)
-                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                        <p class="font-semibold text-slate-900">{{ $submission['student'] }}</p>
-                        <p class="text-sm text-slate-500">{{ $submission['course'] }} · {{ $submission['assignment'] }}</p>
-                    </div>
-                @endforeach
+
+            <div class="mt-6 space-y-3">
+                <x-submission-card student="Liam Harper" assignment="Algebra homework" submitted-at="12 mins ago" status="Needs review" status-variant="warning" />
+                <x-submission-card student="Ava Lee" assignment="Genetics summary" submitted-at="34 mins ago" status="Reviewed" status-variant="success" />
+                <x-submission-card student="Noah Kim" assignment="Essay draft" submitted-at="1 hr ago" status="Pending" status-variant="primary" />
             </div>
         </x-card>
-    </div>
+    </section>
 
+    <section class="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <x-card>
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Analytics</h2>
+                    <p class="text-sm text-slate-500">Healthy signals from your teaching week.</p>
+                </div>
+                <x-badge variant="success">Stable</x-badge>
+            </div>
+
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <x-analytics-card title="Assignment completion" value="87%" detail="Submissions on time" progress="87" />
+                <x-analytics-card title="Student attendance" value="92%" detail="Average this week" progress="92" />
+                <x-analytics-card title="Weekly activity" value="64" detail="Engagement moments" progress="64" />
+                <x-analytics-card title="Course performance" value="4.8/5" detail="Student sentiment" progress="96" />
+            </div>
+        </x-card>
+
+        <x-card>
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Today's schedule</h2>
+                    <p class="text-sm text-slate-500">A quick look at the day ahead.</p>
+                </div>
+                <x-badge>Today</x-badge>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <div class="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <div>
+                        <p class="font-semibold text-slate-900">09:00</p>
+                        <p class="text-sm text-slate-500">Mathematics · Grade 10</p>
+                    </div>
+                    <span class="text-sm font-medium text-slate-500">Lecture</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <div>
+                        <p class="font-semibold text-slate-900">11:30</p>
+                        <p class="text-sm text-slate-500">Physics · Lab review</p>
+                    </div>
+                    <span class="text-sm font-medium text-slate-500">Lab</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <div>
+                        <p class="font-semibold text-slate-900">14:00</p>
+                        <p class="text-sm text-slate-500">Biology · Office hours</p>
+                    </div>
+                    <span class="text-sm font-medium text-slate-500">Support</span>
+                </div>
+            </div>
+        </x-card>
+    </section>
+
+    <section class="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <x-card>
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Announcements</h2>
+                    <p class="text-sm text-slate-500">Keep your classes informed and aligned.</p>
+                </div>
+                <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">View all</a>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <div class="flex items-start justify-between gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                    <div>
+                        <p class="font-semibold text-slate-900">Midterm prep workshop</p>
+                        <p class="mt-1 text-sm text-slate-500">Published 2 hours ago · Shared with all classes</p>
+                    </div>
+                    <x-badge variant="primary">Published</x-badge>
+                </div>
+                <div class="flex items-start justify-between gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                    <div>
+                        <p class="font-semibold text-slate-900">Lab Safety Reminder</p>
+                        <p class="mt-1 text-sm text-slate-500">Published yesterday · Required reading</p>
+                    </div>
+                    <x-badge variant="warning">Needs attention</x-badge>
+                </div>
+            </div>
+        </x-card>
+
+        <x-card>
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Recent activity</h2>
+                    <p class="text-sm text-slate-500">A timeline of what happened recently.</p>
+                </div>
+                <x-badge variant="success">Live</x-badge>
+            </div>
+
+            <ul class="mt-6 space-y-3">
+                <x-activity-card title="John submitted Algebra Homework" description="Marked as ready for review" time="8m" />
+                <x-activity-card title="Emma created a new assignment" description="Physics quiz published for block B" time="22m" />
+                <x-activity-card title="Michael completed a Physics Quiz" description="Achievement unlocked for strong performance" time="1h" />
+            </ul>
+        </x-card>
+    </section>
+
+    <section class="grid gap-4 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2 xl:grid-cols-4">
+        <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Create course</a>
+        <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Create assignment</a>
+        <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Manage students</a>
+        <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">View grades</a>
+    </section>
 </div>
-
 @endsection

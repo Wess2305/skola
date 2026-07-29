@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Course Detail')
+
+
 @section('content')
 
 @php

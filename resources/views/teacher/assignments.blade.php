@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Assignments')
+
+
 @section('content')
 
 <div class="space-y-8">
@@ -10,14 +13,8 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Assignment workflow</h1>
             <p class="mt-2 text-slate-500">Create assignments, review submissions, and check due dates.</p>
         </div>
-        <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">New assignment</a>
-    </div>
-
-    <div class="space-y-6">
-        @foreach([
-            ['title' => 'Algebra Homework', 'course' => 'Mathematics', 'due' => 'Tomorrow', 'submissions' => 28, 'status' => 'Open'],
-            ['title' => 'Newton Worksheet', 'course' => 'Physics', 'due' => 'Friday', 'submissions' => 22, 'status' => 'Open'],
-            ['title' => 'Genetics Summary', 'course' => 'Biology', 'due' => 'Next Monday', 'submissions' => 18, 'status' => 'Review'],
+            <a href="{{ route('teacher.assignments') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">New assignment</a>
+        </div>
         ] as $assignment)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Calendar')
+
+
 @section('content')
 
 @php
@@ -32,13 +35,14 @@
             <div class="grid grid-cols-7 gap-3 text-center text-xs uppercase text-slate-500">
                 <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
             </div>
-            <div class="mt-4 grid grid-cols-7 gap-3 text-sm">
-                @for($blank = 0; $blank < 2; $blank++)
-                    <div class="h-24 rounded-3xl bg-slate-100"></div>
-                @endfor
+            <div class="mt-4 overflow-x-auto">
+                <div class="min-w-[720px] grid grid-cols-7 gap-3 text-sm">
+                    @for($blank = 0; $blank < 2; $blank++)
+                        <div class="h-24 rounded-3xl bg-slate-100"></div>
+                    @endfor
                 @foreach($days as $day)
                     @php $hasEvent = collect($events)->contains('day', $day); @endphp
-                    <div class="relative flex h-24 flex-col rounded-3xl border p-3 text-left transition {{ $hasEvent ? 'border-indigo-200 bg-indigo-50' : 'border-slate-200 bg-white' }}">
+                    <div class="relative flex min-h-[96px] flex-col rounded-3xl border p-3 text-left transition {{ $hasEvent ? 'border-indigo-200 bg-indigo-50' : 'border-slate-200 bg-white' }}">
                         <span class="text-sm font-semibold {{ $hasEvent ? 'text-indigo-700' : 'text-slate-700' }}">{{ $day }}</span>
                         @if($hasEvent)
                             <span class="mt-2 block rounded-2xl bg-indigo-600 px-2 py-1 text-[11px] font-semibold text-white">Event</span>

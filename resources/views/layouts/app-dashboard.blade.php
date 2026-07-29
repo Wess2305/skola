@@ -22,10 +22,10 @@
             @include('components.topbar')
 
             {{-- Content --}}
-            <main class="p-8">
-
-                @yield('content')
-
+            <main class="flex-1 overflow-y-auto px-6 py-8 sm:px-8 lg:px-10">
+                <div class="mx-auto w-full max-w-7xl">
+                    @yield('content')
+                </div>
             </main>
 
         </div>

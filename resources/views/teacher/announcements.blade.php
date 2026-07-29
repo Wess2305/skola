@@ -1,5 +1,8 @@
 @extends('layouts.app-dashboard')
 
+@section('pageTitle', 'Announcements')
+
+
 @section('content')
 
 <div class="space-y-8">
@@ -10,14 +13,8 @@
             <h1 class="mt-3 text-3xl font-semibold text-slate-900">Class updates</h1>
             <p class="mt-2 text-slate-500">Publish announcements to keep students informed.</p>
         </div>
-        <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Announcement</a>
-    </div>
-
-    <div class="space-y-6">
-        @foreach([
-            ['title' => 'New syllabus reminder', 'course' => 'Mathematics', 'message' => 'Updated syllabus is uploaded for review.', 'time' => 'Today'],
-            ['title' => 'Lab equipment check', 'course' => 'Chemistry', 'message' => 'Make sure all students complete the checklist before lab.', 'time' => 'Yesterday'],
-            ['title' => 'Essay submission guidelines', 'course' => 'English', 'message' => 'Submit drafts before the weekend deadline.', 'time' => '2 days ago'],
+            <a href="{{ route('teacher.announcements') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Create Announcement</a>
+        </div>
         ] as $item)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
