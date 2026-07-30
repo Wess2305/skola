@@ -99,4 +99,15 @@
 
     </div>
 
+    <div class="p-6 border-t">
+        <div class="text-sm text-slate-600 mb-2">{{ auth()->user()->name }}</div>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-left block px-4 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-red-50 hover:text-red-600">
+                Logout
+            </button>
+        </form>
+    </div>
+
 </aside>
