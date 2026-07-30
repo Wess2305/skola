@@ -4,9 +4,7 @@
 
         {{-- Logo --}}
         <div class="p-6 border-b">
-            <h1 class="text-2xl font-bold text-indigo-600">
-                Skola
-            </h1>
+            <img src="{{ asset('images/logo.png') }}" alt="Skola Logo" class="h-10 w-auto">
 
             <p class="text-sm text-gray-500 mt-1">
                 Learning Management System
