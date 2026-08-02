@@ -32,25 +32,22 @@
                 <x-badge>Updated</x-badge>
             </div>
             <div class="mt-6 space-y-5">
-                @foreach([
-                    ['course' => 'Mathematics', 'grade' => 'A', 'score' => 96],
-                    ['course' => 'English', 'grade' => 'A', 'score' => 92],
-                    ['course' => 'Physics', 'grade' => 'B+', 'score' => 85],
-                    ['course' => 'History', 'grade' => 'A-', 'score' => 88],
-                ] as $item)
+                @forelse($submissions as $submission)
                     <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
                         <div class="flex items-center justify-between gap-4">
                             <div>
-                                <p class="text-sm font-medium text-slate-500">{{ $item['course'] }}</p>
-                                <p class="mt-1 text-2xl font-semibold text-slate-900">{{ $item['grade'] }}</p>
+                                <p class="text-sm font-medium text-slate-500">{{ $submission->assignment?->course?->title ?? 'Course' }}</p>
+                                <p class="mt-1 text-2xl font-semibold text-slate-900">{{ $submission->grade ? $submission->grade->score.'%' : 'Pending' }}</p>
                             </div>
-                            <span class="text-sm text-slate-500">{{ $item['score'] }}%</span>
+                            <span class="text-sm text-slate-500">{{ $submission->assignment?->title ?? 'Assignment' }}</span>
                         </div>
                         <div class="mt-4 h-2 overflow-hidden rounded-full bg-slate-200">
-                            <div class="h-2 rounded-full bg-indigo-600" style="width: {{ $item['score'] }}%"></div>
+                            <div class="h-2 rounded-full bg-indigo-600" style="width: {{ $submission->grade?->score ?? 0 }}%"></div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p class="text-sm text-slate-500">No submissions recorded yet.</p>
+                @endforelse
             </div>
         </x-card>
 

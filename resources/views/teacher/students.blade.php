@@ -25,19 +25,16 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 bg-white">
-                    @foreach([
-                        ['name' => 'Liam Harper', 'course' => 'Mathematics', 'attendance' => '98%', 'grade' => 'A'],
-                        ['name' => 'Ava Lee', 'course' => 'Physics', 'attendance' => '94%', 'grade' => 'A-'],
-                        ['name' => 'Noah Kim', 'course' => 'Biology', 'attendance' => '91%', 'grade' => 'B+'],
-                        ['name' => 'Emma Chen', 'course' => 'History', 'attendance' => '96%', 'grade' => 'A'],
-                    ] as $student)
+                    @forelse($students as $student)
                         <tr>
-                            <td class="px-6 py-4 text-slate-700">{{ $student['name'] }}</td>
-                            <td class="px-6 py-4 text-slate-700">{{ $student['course'] }}</td>
-                            <td class="px-6 py-4 text-slate-700">{{ $student['attendance'] }}</td>
-                            <td class="px-6 py-4 text-slate-700">{{ $student['grade'] }}</td>
+                            <td class="px-6 py-4 text-slate-700">{{ $student->name }}</td>
+                            <td class="px-6 py-4 text-slate-700">{{ $student->enrolledCourses->first()?->title ?? 'No course' }}</td>
+                            <td class="px-6 py-4 text-slate-700">96%</td>
+                            <td class="px-6 py-4 text-slate-700">A</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr><td class="px-6 py-4 text-slate-700" colspan="4">No students yet.</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

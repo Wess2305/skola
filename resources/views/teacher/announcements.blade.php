@@ -17,21 +17,20 @@
     </div>
 
     <div class="space-y-4">
-        @foreach([
-            ['course' => 'Chemistry', 'title' => 'Lab safety reminder', 'message' => 'Please review the updated safety procedures before tomorrow’s lab.', 'time' => '2h ago'],
-            ['course' => 'Biology', 'title' => 'Field trip form due Friday', 'message' => 'Submit the permission slip before the end of the week.', 'time' => 'Today'],
-        ] as $item)
+        @forelse($announcements as $announcement)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                        <p class="text-sm text-indigo-600">{{ $item['course'] }}</p>
-                        <h2 class="mt-2 text-xl font-semibold text-slate-900">{{ $item['title'] }}</h2>
-                        <p class="mt-2 text-slate-500">{{ $item['message'] }}</p>
+                        <p class="text-sm text-indigo-600">{{ $announcement->course?->title ?? 'Course' }}</p>
+                        <h2 class="mt-2 text-xl font-semibold text-slate-900">{{ $announcement->title }}</h2>
+                        <p class="mt-2 text-slate-500">{{ $announcement->content }}</p>
                     </div>
-                    <span class="rounded-2xl bg-slate-100 px-3 py-1 text-sm text-slate-700">{{ $item['time'] }}</span>
+                    <span class="rounded-2xl bg-slate-100 px-3 py-1 text-sm text-slate-700">{{ $announcement->created_at->diffForHumans() }}</span>
                 </div>
             </x-card>
-        @endforeach
+        @empty
+            <p class="text-sm text-slate-500">No announcements yet.</p>
+        @endforelse
     </div>
     </div>
 

@@ -57,12 +57,11 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <x-course-card course="mathematics" title="Mathematics" teacher="Mr. Anderson" progress="80" icon="📘" />
-        <x-course-card course="physics" title="Physics" teacher="Mrs. Olivia" progress="60" icon="🧪" />
-        <x-course-card course="biology" title="Biology" teacher="Mr. James" progress="45" icon="🧬" />
-        <x-course-card course="chemistry" title="Chemistry" teacher="Mrs. Emma" progress="30" icon="⚗️" />
-        <x-course-card course="english" title="English" teacher="Ms. Sarah" progress="95" icon="📖" />
-        <x-course-card course="history" title="History" teacher="Mr. Michael" progress="70" icon="🏛️" />
+        @forelse($courses as $course)
+            <x-course-card course="{{ $course->slug ?? Str::slug($course->title) }}" title="{{ $course->title }}" teacher="{{ $course->teacher?->name ?? 'Instructor' }}" progress="80" icon="📘" />
+        @empty
+            <p class="text-sm text-slate-500">No courses available yet.</p>
+        @endforelse
     </div>
 
 </div>

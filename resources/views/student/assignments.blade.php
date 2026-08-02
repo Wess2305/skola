@@ -22,34 +22,34 @@
     <div class="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
 
         <div class="space-y-6">
-            @foreach([
-                ['title' => 'Algebra Homework', 'course' => 'Mathematics', 'due' => 'Tomorrow', 'status' => 'Pending', 'badge' => 'danger'],
-                ['title' => 'Newton Worksheet', 'course' => 'Physics', 'due' => 'Friday', 'status' => 'Pending', 'badge' => 'warning'],
-                ['title' => 'Genetics Summary', 'course' => 'Biology', 'due' => 'Next Monday', 'status' => 'Submitted', 'badge' => 'success'],
-                ['title' => 'Essay Draft', 'course' => 'English', 'due' => 'Wednesday', 'status' => 'Pending', 'badge' => 'warning'],
-                ['title' => 'History Presentation', 'course' => 'History', 'due' => 'Next Thursday', 'status' => 'Submitted', 'badge' => 'success'],
-            ] as $assignment)
+            @forelse($assignments as $assignment)
                 <x-card>
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h2 class="text-lg font-semibold text-slate-900">{{ $assignment['title'] }}</h2>
-                            <p class="text-sm text-slate-500 mt-1">{{ $assignment['course'] }}</p>
+                            <h2 class="text-lg font-semibold text-slate-900">{{ $assignment->title }}</h2>
+                            <p class="text-sm text-slate-500 mt-1">{{ $assignment->course->title }}</p>
+                            <p class="mt-2 text-sm text-slate-500">{{ $assignment->description }}</p>
                         </div>
-                        <x-badge variant="{{ $assignment['badge'] }}">{{ $assignment['status'] }}</x-badge>
+                        <x-badge variant="{{ $assignment->submissions->isNotEmpty() ? 'success' : 'warning' }}">{{ $assignment->submissions->isNotEmpty() ? 'Submitted' : 'Pending' }}</x-badge>
                     </div>
 
                     <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div class="text-sm text-slate-500">
-                            Due date: <span class="font-semibold text-slate-700">{{ $assignment['due'] }}</span>
+                            Due date: <span class="font-semibold text-slate-700">{{ $assignment->due_date }}</span>
+                            @if($assignment->attachment)
+                                <span class="ml-3">• Attachment: <a href="{{ Storage::disk('public')->url($assignment->attachment) }}" class="font-semibold text-indigo-600 hover:text-indigo-700" target="_blank">Open</a></span>
+                            @endif
                         </div>
-                        @if($assignment['status'] === 'Submitted')
+                        @if($assignment->submissions->isNotEmpty())
                             <button class="inline-flex items-center rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Submitted</button>
                         @else
                             <button class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Submit</button>
                         @endif
                     </div>
                 </x-card>
-            @endforeach
+            @empty
+                <p class="text-sm text-slate-500">No assignments yet.</p>
+            @endforelse
         </div>
 
         <x-card>

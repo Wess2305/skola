@@ -36,12 +36,11 @@
         </div>
     </div>
 
-    <a
-        href="{{ route('student.course.detail', $course) }}"
-        class="block text-center mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl transition">
-
-        Continue Learning
-
-    </a>
+    <form action="{{ route('student.courses.enroll', $course) }}" method="POST">
+        @csrf
+        <button type="submit" class="block text-center mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl transition">
+            Continue Learning
+        </button>
+    </form>
 
 </div>

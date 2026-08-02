@@ -17,24 +17,23 @@
     </div>
 
     <div class="space-y-4">
-        @foreach([
-            ['course' => 'Chemistry', 'assignment' => 'Reaction lab worksheet', 'student' => 'Liam Harper', 'status' => 'Pending', 'submitted' => 'Submitted 2h ago'],
-            ['course' => 'Biology', 'assignment' => 'Cell structure quiz', 'student' => 'Ava Lee', 'status' => 'Reviewed', 'submitted' => 'Reviewed today'],
-        ] as $submission)
+        @forelse($submissions as $submission)
             <x-card>
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <p class="text-sm text-slate-500">{{ $submission['course'] }}</p>
-                        <h2 class="text-xl font-semibold text-slate-900">{{ $submission['assignment'] }}</h2>
-                        <p class="text-sm text-slate-500 mt-1">{{ $submission['student'] }}</p>
+                        <p class="text-sm text-slate-500">{{ $submission->assignment->course->title }}</p>
+                        <h2 class="text-xl font-semibold text-slate-900">{{ $submission->assignment->title }}</h2>
+                        <p class="text-sm text-slate-500 mt-1">{{ $submission->student->name }}</p>
                     </div>
                     <div class="flex flex-col items-start gap-2 sm:items-end">
-                        <x-badge variant="{{ $submission['status'] === 'Reviewed' ? 'success' : 'warning' }}">{{ $submission['status'] }}</x-badge>
-                        <p class="text-sm text-slate-500">{{ $submission['submitted'] }}</p>
+                        <x-badge variant="{{ $submission->grade ? 'success' : 'warning' }}">{{ $submission->grade ? 'Reviewed' : 'Pending' }}</x-badge>
+                        <p class="text-sm text-slate-500">{{ $submission->submitted_at }}</p>
                     </div>
                 </div>
             </x-card>
-        @endforeach
+        @empty
+            <p class="text-sm text-slate-500">No submissions yet.</p>
+        @endforelse
     </div>
     </div>
 

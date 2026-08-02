@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -54,14 +55,23 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])
         ->name('student.dashboard');
 
-    Route::view('/student/courses', 'student.courses')
+    Route::get('/student/courses', [StudentController::class, 'courses'])
         ->name('student.courses');
 
-    Route::view('/student/assignments', 'student.assignments')
+    Route::post('/student/courses/{course}/enroll', [StudentController::class, 'enroll'])
+        ->name('student.courses.enroll');
+
+    Route::get('/student/assignments', [StudentController::class, 'assignments'])
         ->name('student.assignments');
 
-    Route::view('/student/grades', 'student.grades')
+    Route::get('/student/grades', [StudentController::class, 'grades'])
         ->name('student.grades');
+
+    Route::post('/student/assignments/{assignment}/submit', [StudentController::class, 'submitAssignment'])
+        ->name('student.assignments.submit');
+
+    Route::get('/student/submissions/{submission}/download', [StudentController::class, 'downloadSubmission'])
+        ->name('student.submissions.download');
 
     Route::view('/student/calendar', 'student.calendar')
         ->name('student.calendar');
@@ -89,25 +99,37 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard'])
         ->name('teacher.dashboard');
 
-    Route::view('/teacher/courses', 'teacher.courses')
+    Route::get('/teacher/courses', [TeacherController::class, 'courses'])
         ->name('teacher.courses');
 
-    Route::view('/teacher/modules', 'teacher.modules')
+    Route::get('/teacher/modules', [TeacherController::class, 'modules'])
         ->name('teacher.modules');
 
-    Route::view('/teacher/assignments', 'teacher.assignments')
+    Route::get('/teacher/assignments', [TeacherController::class, 'assignments'])
         ->name('teacher.assignments');
 
-    Route::view('/teacher/submissions', 'teacher.submissions')
+    Route::get('/teacher/assignments/create', [AssignmentController::class, 'create'])
+        ->name('teacher.assignments.create');
+
+    Route::post('/teacher/assignments', [AssignmentController::class, 'store'])
+        ->name('teacher.assignments.store');
+
+    Route::get('/teacher/submissions', [TeacherController::class, 'submissions'])
         ->name('teacher.submissions');
 
-    Route::view('/teacher/students', 'teacher.students')
+    Route::post('/teacher/submissions/{submission}/grade', [TeacherController::class, 'gradeSubmission'])
+        ->name('teacher.submissions.grade');
+
+    Route::get('/teacher/submissions/{submission}/download', [TeacherController::class, 'downloadSubmission'])
+        ->name('teacher.submissions.download');
+
+    Route::get('/teacher/students', [TeacherController::class, 'students'])
         ->name('teacher.students');
 
-    Route::view('/teacher/grades', 'teacher.grades')
+    Route::get('/teacher/grades', [TeacherController::class, 'grades'])
         ->name('teacher.grades');
 
-    Route::view('/teacher/announcements', 'teacher.announcements')
+    Route::get('/teacher/announcements', [TeacherController::class, 'announcements'])
         ->name('teacher.announcements');
 
     Route::view('/teacher/profile', 'teacher.profile')

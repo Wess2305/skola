@@ -68,42 +68,22 @@
                 </div>
 
                 <div class="space-y-5">
-                    <div class="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-slate-500">Mathematics</p>
-                                <p class="text-xs text-slate-400">Mr. Anderson</p>
+                    @forelse($courses as $course)
+                        <div class="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-500">{{ $course->title }}</p>
+                                    <p class="text-xs text-slate-400">{{ $course->teacher?->name ?? 'Instructor' }}</p>
+                                </div>
+                                <span class="text-sm text-slate-500">{{ $course->modules_count ?? 0 }} modules</span>
                             </div>
-                            <span class="text-sm text-slate-500">80%</span>
-                        </div>
-                        <div class="h-2 overflow-hidden rounded-full bg-slate-200">
-                            <div class="h-2 w-4/5 rounded-full bg-indigo-600"></div>
-                        </div>
-                    </div>
-                    <div class="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-slate-500">Physics</p>
-                                <p class="text-xs text-slate-400">Mrs. Olivia</p>
+                            <div class="h-2 overflow-hidden rounded-full bg-slate-200">
+                                <div class="h-2 w-4/5 rounded-full bg-indigo-600"></div>
                             </div>
-                            <span class="text-sm text-slate-500">60%</span>
                         </div>
-                        <div class="h-2 overflow-hidden rounded-full bg-slate-200">
-                            <div class="h-2 w-3/5 rounded-full bg-indigo-600"></div>
-                        </div>
-                    </div>
-                    <div class="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-slate-500">Biology</p>
-                                <p class="text-xs text-slate-400">Mr. James</p>
-                            </div>
-                            <span class="text-sm text-slate-500">45%</span>
-                        </div>
-                        <div class="h-2 overflow-hidden rounded-full bg-slate-200">
-                            <div class="h-2 w-[45%] rounded-full bg-indigo-600"></div>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm text-slate-500">No enrolled courses yet.</p>
+                    @endforelse
                 </div>
             </div>
         </x-card>
@@ -118,42 +98,33 @@
                     <x-badge>3 left</x-badge>
                 </div>
                 <div class="mt-6 space-y-4">
-                    <label class="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-4 py-3">
-                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-slate-700">Physics homework</span>
-                    </label>
-                    <label class="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-4 py-3">
-                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-slate-700">Biology report</span>
-                    </label>
-                    <label class="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-4 py-3">
-                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-slate-700">English essay</span>
-                    </label>
+                    @forelse($upcomingAssignments as $assignment)
+                        <div class="rounded-3xl border border-slate-200 bg-white px-4 py-3">
+                            <p class="font-semibold text-slate-900">{{ $assignment->title }}</p>
+                            <p class="mt-1 text-sm text-slate-500">{{ $assignment->course->title }} · Due {{ $assignment->due_date }}</p>
+                        </div>
+                    @empty
+                        <p class="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">No upcoming assignments.</p>
+                    @endforelse
                 </div>
             </x-card>
 
             <x-card>
                 <h2 class="text-xl font-semibold text-slate-900">Upcoming Deadlines</h2>
                 <div class="mt-6 space-y-4">
-                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <p class="font-semibold text-slate-900">Math quiz</p>
-                                <p class="text-sm text-slate-500">Scheduled for tomorrow</p>
+                    @forelse($upcomingAssignments as $assignment)
+                        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <p class="font-semibold text-slate-900">{{ $assignment->title }}</p>
+                                    <p class="text-sm text-slate-500">Due {{ $assignment->due_date }}</p>
+                                </div>
+                                <x-badge variant="warning">{{ $assignment->course->title }}</x-badge>
                             </div>
-                            <x-badge variant="danger">Tomorrow</x-badge>
                         </div>
-                    </div>
-                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <p class="font-semibold text-slate-900">Chemistry project</p>
-                                <p class="text-sm text-slate-500">Due this Friday</p>
-                            </div>
-                            <x-badge variant="warning">Friday</x-badge>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">No deadlines available.</p>
+                    @endforelse
                 </div>
             </x-card>
         </div>

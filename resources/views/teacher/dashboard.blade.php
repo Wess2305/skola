@@ -14,17 +14,17 @@
 
             <div class="flex flex-wrap gap-3">
                 <a href="#" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700">Create course</a>
-                <a href="#" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">New assignment</a>
+                <a href="{{ route('teacher.assignments.create') }}" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">New assignment</a>
                 <a href="#" class="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">Create announcement</a>
             </div>
         </div>
     </section>
 
     <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <x-teacher-stat-card title="Total students" value="184" description="Across 5 active classes" icon="👥" accent="bg-indigo-50 text-indigo-600" />
-        <x-teacher-stat-card title="Courses" value="5" description="2 new this term" icon="📘" accent="bg-violet-50 text-violet-600" />
-        <x-teacher-stat-card title="Assignments" value="24" description="8 due this week" icon="📝" accent="bg-emerald-50 text-emerald-600" />
-        <x-teacher-stat-card title="Pending grades" value="14" description="Need review today" icon="✅" accent="bg-amber-50 text-amber-600" />
+        <x-teacher-stat-card title="Total students" value="{{ $studentCount }}" description="Across your active classes" icon="👥" accent="bg-indigo-50 text-indigo-600" />
+        <x-teacher-stat-card title="Courses" value="{{ $courses->count() }}" description="Managed by you" icon="📘" accent="bg-violet-50 text-violet-600" />
+        <x-teacher-stat-card title="Assignments" value="{{ $assignments->count() }}" description="Published for your courses" icon="📝" accent="bg-emerald-50 text-emerald-600" />
+        <x-teacher-stat-card title="Pending grades" value="{{ $pendingGrades }}" description="Awaiting review" icon="✅" accent="bg-amber-50 text-amber-600" />
     </section>
 
     <section class="grid gap-6 xl:grid-cols-[1.3fr_0.9fr]">
@@ -38,10 +38,11 @@
             </div>
 
             <div class="mt-6 grid gap-4 lg:grid-cols-2">
-                <x-course-overview-card title="Mathematics" students="42" progress="82" next-lesson="Linear equations practice" />
-                <x-course-overview-card title="Physics" students="31" progress="68" next-lesson="Forces and motion lab" />
-                <x-course-overview-card title="Biology" students="29" progress="76" next-lesson="Cell structure review" />
-                <x-course-overview-card title="Chemistry" students="27" progress="59" next-lesson="Acid-base reactions" />
+                @forelse($courses as $course)
+                    <x-course-overview-card title="{{ $course->title }}" students="{{ $course->students_count }}" progress="82" next-lesson="{{ $course->modules->first()?->title ?? 'Ready for content' }}" />
+                @empty
+                    <p class="text-sm text-slate-500">No courses created yet.</p>
+                @endforelse
             </div>
         </x-card>
 
@@ -162,7 +163,7 @@
 
     <section class="grid gap-4 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2 xl:grid-cols-4">
         <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Create course</a>
-        <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Create assignment</a>
+        <a href="{{ route('teacher.assignments.create') }}" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Create assignment</a>
         <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">Manage students</a>
         <a href="#" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700">View grades</a>
     </section>
