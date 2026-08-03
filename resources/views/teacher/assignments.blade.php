@@ -41,6 +41,9 @@
                         Course: <span class="font-semibold text-slate-900">{{ $assignment->course->title }}</span>
                     </div>
                 </div>
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <a href="{{ route('teacher.submissions') }}" class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Review submissions</a>
+                </div>
             </x-card>
         @empty
             <p class="text-sm text-slate-500">No assignments yet.</p>

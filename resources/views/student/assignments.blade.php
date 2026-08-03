@@ -33,18 +33,32 @@
                         <x-badge variant="{{ $assignment->submissions->isNotEmpty() ? 'success' : 'warning' }}">{{ $assignment->submissions->isNotEmpty() ? 'Submitted' : 'Pending' }}</x-badge>
                     </div>
 
-                    <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="mt-5 flex flex-col gap-4">
                         <div class="text-sm text-slate-500">
                             Due date: <span class="font-semibold text-slate-700">{{ $assignment->due_date }}</span>
                             @if($assignment->attachment)
                                 <span class="ml-3">• Attachment: <a href="{{ Storage::disk('public')->url($assignment->attachment) }}" class="font-semibold text-indigo-600 hover:text-indigo-700" target="_blank">Open</a></span>
                             @endif
                         </div>
+
                         @if($assignment->submissions->isNotEmpty())
-                            <button class="inline-flex items-center rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Submitted</button>
-                        @else
-                            <button class="inline-flex items-center rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Submit</button>
+                            @php $submission = $assignment->submissions->first(); @endphp
+                            <div class="flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+                                <div class="text-sm text-emerald-700">
+                                    <p class="font-semibold">Submitted and visible to your teacher.</p>
+                                    <p class="mt-1">You can replace the file below if you need to upload an updated version.</p>
+                                </div>
+                                <a href="{{ route('student.submissions.download', $submission) }}" class="inline-flex items-center rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm border border-emerald-200 hover:bg-emerald-100">Download file</a>
+                            </div>
                         @endif
+
+                        <form action="{{ route('student.assignments.submit', $assignment) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                            @csrf
+                            <input type="file" name="file" class="block w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700" required>
+                            <button type="submit" class="inline-flex items-center rounded-2xl {{ $assignment->submissions->isNotEmpty() ? 'bg-slate-900' : 'bg-indigo-600' }} px-4 py-2 text-sm font-semibold text-white hover:{{ $assignment->submissions->isNotEmpty() ? 'bg-slate-800' : 'bg-indigo-700' }}">
+                                {{ $assignment->submissions->isNotEmpty() ? 'Replace file' : 'Submit' }}
+                            </button>
+                        </form>
                     </div>
                 </x-card>
             @empty
