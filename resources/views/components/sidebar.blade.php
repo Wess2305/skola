@@ -40,6 +40,10 @@
                    class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.calendar') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
                     Calendar
                 </a>
+                <a href="{{ route('student.announcements') }}"
+   class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.announcements') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
+    Announcements
+</a>
 
                 <a href="{{ route('student.notifications') }}"
                    class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.notifications') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
