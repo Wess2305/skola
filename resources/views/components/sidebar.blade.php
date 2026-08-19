@@ -40,14 +40,15 @@
                    class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.calendar') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
                     Calendar
                 </a>
-                <a href="{{ route('student.announcements') }}"
-   class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.announcements') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
-    Announcements
-</a>
 
                 <a href="{{ route('student.notifications') }}"
                    class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.notifications') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
                     Notifications
+                </a>
+
+                <a href="{{ route('student.contact') }}"
+                   class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('student.contact') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
+                    Tanya Dong
                 </a>
 
                 <a href="{{ route('student.profile') }}"
@@ -90,6 +91,11 @@
                 <a href="{{ route('teacher.announcements') }}"
                    class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('teacher.announcements') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
                     Announcements
+                </a>
+
+                <a href="{{ route('teacher.messages') }}"
+                   class="block px-4 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('teacher.messages') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-700 hover:bg-indigo-50 hover:text-indigo-600' }}">
+                    Tanya Dong
                 </a>
 
                 <a href="{{ route('teacher.profile') }}"

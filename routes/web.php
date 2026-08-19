@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,12 +83,15 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::view('/student/profile', 'student.profile')
         ->name('student.profile');
 
-        Route::get('/student/announcements', [AnnouncementController::class, 'studentIndex'])
-    ->name('student.announcements');
-
     Route::get('/student/course/{slug}', function ($slug) {
         return view('student.course-detail', ['course' => $slug]);
     })->name('student.course.detail');
+
+    Route::get('/student/contact', [ContactMessageController::class, 'create'])
+        ->name('student.contact');
+
+    Route::post('/student/contact', [ContactMessageController::class, 'store'])
+        ->name('student.contact.store');
 
 });
 
@@ -133,18 +136,14 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::get('/teacher/grades', [TeacherController::class, 'grades'])
         ->name('teacher.grades');
 
+    Route::get('/teacher/announcements', [TeacherController::class, 'announcements'])
+        ->name('teacher.announcements');
 
     Route::view('/teacher/profile', 'teacher.profile')
         ->name('teacher.profile');
-        Route::get('/teacher/announcements', [AnnouncementController::class, 'teacherIndex'])
-    ->name('teacher.announcements');
 
-Route::get('/teacher/announcements/create', [AnnouncementController::class, 'create'])
-    ->name('teacher.announcements.create');
-
-Route::post('/teacher/announcements', [AnnouncementController::class, 'store'])
-    ->name('teacher.announcements.store');
-        
+    Route::get('/teacher/messages', [ContactMessageController::class, 'inbox'])
+        ->name('teacher.messages');
 
 });
 
